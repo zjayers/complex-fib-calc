@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t zjayers/fib-calc -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true zjayers/fib-calc npm test
+
+after_success:
+  - docker build -t zjayers/fib-client ./client
+  - docker build -t zjayers/fib-nginx ./nginx
+  - docker build -t zjayers/fib-server ./server
+  - docker build -t zjayers/fib-worker ./worker
+  # Log in to docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push images to docker hub
+  - docker push zjayers/fib-client
+  - docker push zjayers/fib-nginx
+  - docker push zjayers/fib-server
+  - docker push zjayers/fib-worker
