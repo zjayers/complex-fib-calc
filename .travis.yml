@@ -5,16 +5,16 @@ services:
   - docker
 
 before_install:
-  - docker build -t zjayers/fib-test -f ./client/Dockerfile.dev ./client
+  - docker build -t zjayers/fib-test -f /client/Dockerfile.dev /client
 
 script:
-  - docker run -e CI=true zjayers/fib-calc npm test
+  - docker run -e CI=true zjayers/fib-test npm test
 
 after_success:
-  - docker build -t zjayers/fib-client ./client
-  - docker build -t zjayers/fib-nginx ./nginx
-  - docker build -t zjayers/fib-server ./server
-  - docker build -t zjayers/fib-worker ./worker
+  - docker build -t zjayers/fib-client /client
+  - docker build -t zjayers/fib-nginx /nginx
+  - docker build -t zjayers/fib-server /server
+  - docker build -t zjayers/fib-worker /worker
   # Log in to docker cli
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push images to docker hub
