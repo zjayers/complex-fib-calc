@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t zjayers/fib-calc -f ./client/Dockerfile.dev ./client
+  - docker build -t zjayers/fib-client-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true zjayers/fib-calc npm test
