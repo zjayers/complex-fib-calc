@@ -1,26 +1,34 @@
 sudo: required
 services:
   - docker
+env:
+  global:
+    - GIT_SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 before_install:
+# Configure the service account file
   - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d
-
   # Install Google Cloud CLI
   - curl https://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components update kubectl
-# Configure SDK without the Google Cloud Auth Info  - gcloud auth activate-service-account --key-file service-account.json
-
+# Configure SDK without the Google Cloud Auth Info
+  - gcloud auth activate-service-account --key-file service-account.json
+  - gcloud config set project multi-k8s-284918
+  - gcloud config set compute/zone us-central1-a
+  - gcloud container clusters get-credentials multi-cluster
 # Login to Docker CLI
-
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 # Build the 'Test' version of the multi-client
-
+  - docker build -t zjayers/react-test -f ./client/Dockerfile.dev ./client
 # Run tests
+script:
+  - docker run -e CI=true zjayers/react-test npm run test
 
 # Test OK? run script to deploy
-
-# Build all images, tag each one, push to Docker hub
-
-# Apply all configs from the 'k8s' folder
-
-# Set Google Cloud to use latest version of images
+deploy:
+  provider: script
+  script: bash ./deploy.sj
+  on:
+    branch: k8
