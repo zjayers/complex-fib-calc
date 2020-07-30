@@ -29,6 +29,6 @@ script:
 # Test OK? run script to deploy
 deploy:
   provider: script
-  script: bash ./deploy.sj
+  script: bash ./deploy.sh
   on:
     branch: k8
