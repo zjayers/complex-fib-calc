@@ -19,7 +19,7 @@ before_install:
   - gcloud config set compute/zone us-central1-a
   - gcloud container clusters get-credentials multi-cluster
 # Login to Docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Build the 'Test' version of the multi-client
   - docker build -t zjayers/react-test -f ./client/Dockerfile.dev ./client
 # Run tests
