@@ -1,8 +1,7 @@
 # Complex-Fib-Calc
-[![GitHub Release](https://img.shields.io/github/release/zjayers/complex-fib-calc.svg?style=flat)]()
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/zjayers/complex-fib-calc.svg?style=flat)]()
+[![GitHub Release](https://img.shields.io/github/release/zjayers/complex-fib-calc.svg?style=flat)](https://github.com/zjayers/complex-fib-calc/releases)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/zjayers/complex-fib-calc.svg?style=flat)](https://github.com/zjayers/complex-fib-calc/pulls)
 [![Issues](https://img.shields.io/github/issues-raw/zjayers/complex-fib-calc.svg?maxAge=25000)](https://github.com/zjayers/complex-fib-calc/issues)
-[![MIT License](https://img.shields.io/apm/l/atomic-ui.svg?)](https://github.com/zjayers/complex-fib-calc/blob/master/LICENSEs)
 
 ## Description
 
